@@ -1,52 +1,45 @@
-//better approach
-
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-vector<vector<int>> zeroMatrix(vector<vector<int>> &matrix, int n, int m) {
+  vector<int> intersectionOfArrays(vector<int>A, vector<int>B){
+    
+  // Declare ans array.
+  vector <int> ans;
 
-    int row[n] = {0}; // row array
-    int col[m] = {0}; // col array
+  int i = 0, j = 0; 
 
-    // Traverse the matrix:
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            if (matrix[i][j] == 0) {
-                // mark ith index of row wih 1:
-                row[i] = 1;
-
-                // mark jth index of col wih 1:
-                col[j] = 1;
-            }
-        }
+  // to traverse the arrays
+  while (i < A.size() && j < B.size()) {
+      
+    //if current element in i is smaller
+    if (A[i] < B[j]) { 
+      i++;
+    } else if (B[j] < A[i]) {
+      j++;
+    } else {
+        
+      //both elements are equal
+      ans.push_back(A[i]); 
+      i++;
+      j++;
     }
-
-    // Finally, mark all (i, j) as 0
-    // if row[i] or col[j] is marked with 1.
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            if (row[i] || col[j]) {
-                matrix[i][j] = 0;
-            }
-        }
-    }
-
-    return matrix;
+  }
+  
+  return ans;
+    
 }
 
-int main()
-{
-    vector<vector<int>> matrix = {{1, 1, 1}, {1, 0, 1}, {1, 1, 1}};
-    int n = matrix.size();
-    int m = matrix[0].size();
-    vector<vector<int>> ans = zeroMatrix(matrix, n, m);
+int main() {
+    
+  // Array Initialisation.
+  vector < int > A {1,2,3,3,4,5,6,7};
+  vector < int > B {3,3,4,4,5,8};
 
-    cout << "The Final matrix is: \n";
-    for (auto it : ans) {
-        for (auto ele : it) {
-            cout << ele << " ";
-        }
-        cout << "\n";
-    }
-    return 0;
+  vector<int> ans = intersectionOfArrays(A,B);
+  
+  for (int i = 0; i < ans.size(); i++) {
+    cout << ans[i] << " ";
+  }
+
+  return 0;
 }
